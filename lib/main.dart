@@ -1,5 +1,4 @@
+import 'package:Feelie/signIn.dart';
 import 'package:flutter/material.dart';
 
-import 'firstPage.dart';
-
-void main() => runApp(MyApp());
+void main() => runApp(signIn());
