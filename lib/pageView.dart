@@ -1,5 +1,6 @@
 import 'package:Feelie/Camera/camera.dart';
 import 'package:Feelie/Messages/messages.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/page_view.dart';
 
@@ -8,10 +9,12 @@ import 'MainPage/mainPage.dart';
 class pageView extends StatefulWidget {
   num screenHeight;
   num screenWidth;
+  CameraDescription camera;
 
   pageView({
     @required this.screenHeight,
     @required this.screenWidth,
+    @required this.camera,
   });
   @override
   _pageViewState createState() => _pageViewState();
@@ -47,7 +50,7 @@ class _pageViewState extends State<pageView> {
           });
         },
         children: [
-          camera(screenHeight: widget.screenHeight, screenWidth: widget.screenWidth),
+          cameraPage(camera: widget.camera, screenHeight: widget.screenHeight, screenWidth: widget.screenWidth),
           mainPage(screenHeight: widget.screenHeight, screenWidth: widget.screenWidth),
           messages(screenHeight: widget.screenHeight, screenWidth: widget.screenWidth),
         ],

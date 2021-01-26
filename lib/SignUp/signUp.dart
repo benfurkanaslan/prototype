@@ -1,4 +1,5 @@
 import 'package:Feelie/pageView.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -7,8 +8,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 class signUp extends StatefulWidget {
   num screenHeight;
   num screenWidth;
+  final CameraDescription camera;
 
-  signUp({@required this.screenHeight, @required this.screenWidth});
+  signUp({@required this.screenHeight, @required this.screenWidth, @required this.camera});
 
   @override
   _signUpState createState() => _signUpState();
@@ -40,7 +42,7 @@ class _signUpState extends State<signUp> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        title: Text('Feelie'),
+        title: Text('Feelie', style: TextStyle(fontFamily: 'Pacifico', fontSize: widget.screenWidth * 0.08)),
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -170,7 +172,7 @@ Please enter your birth date correctly.''',
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                builder: (context) => pageView(screenHeight: widget.screenHeight, screenWidth: widget.screenWidth),
+                builder: (context) => pageView(camera: widget.camera, screenHeight: widget.screenHeight, screenWidth: widget.screenWidth),
               ),
               (Route<dynamic> route) => false,
             );

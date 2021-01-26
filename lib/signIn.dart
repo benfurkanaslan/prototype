@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:Feelie/pageView.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,6 +9,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'SignUp/signUp.dart';
 
 class signIn extends StatelessWidget {
+  final CameraDescription camera;
+
+  signIn({this.camera});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -24,9 +29,9 @@ class signIn extends StatelessWidget {
         inputDecorationTheme: InputDecorationTheme(
             focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white), borderRadius: BorderRadius.circular(15)), labelStyle: TextStyle(color: Colors.white)),
         brightness: Brightness.dark,
-        iconTheme: IconThemeData(color: Colors.white, opacity: 0.8),
+        iconTheme: IconThemeData(color: Colors.white),
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
-            backgroundColor: Colors.grey.shade900,
+            backgroundColor: Colors.black,
             selectedItemColor: Colors.white,
             unselectedItemColor: Colors.white38,
             elevation: 0.0,
@@ -36,8 +41,8 @@ class signIn extends StatelessWidget {
         outlinedButtonTheme: OutlinedButtonThemeData(style: OutlinedButton.styleFrom(primary: Colors.white, onSurface: Colors.black, backgroundColor: Colors.black)),
         cardTheme: CardTheme(color: Colors.black, elevation: 2, shadowColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25))),
         floatingActionButtonTheme: FloatingActionButtonThemeData(foregroundColor: Colors.white, backgroundColor: Colors.white12, elevation: 0.0, highlightElevation: 0.0),
-        scaffoldBackgroundColor: Colors.grey.shade900,
-        appBarTheme: AppBarTheme(elevation: 0.0, color: Colors.grey.shade900, centerTitle: true),
+        scaffoldBackgroundColor: Colors.black,
+        appBarTheme: AppBarTheme(elevation: 0.0, color: Colors.black, centerTitle: true),
         primaryColor: Colors.white,
         primaryColorBrightness: Brightness.dark,
         visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -50,9 +55,9 @@ class signIn extends StatelessWidget {
         inputDecorationTheme: InputDecorationTheme(
             focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black), borderRadius: BorderRadius.circular(15)), labelStyle: TextStyle(color: Colors.black)),
         brightness: Brightness.light,
-        iconTheme: IconThemeData(color: Colors.black, opacity: 0.9),
+        iconTheme: IconThemeData(color: Colors.black),
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: Colors.grey.shade100,
+          backgroundColor: Colors.white,
           selectedItemColor: Colors.black,
           unselectedItemColor: Colors.black38,
           elevation: 0.0,
@@ -61,18 +66,20 @@ class signIn extends StatelessWidget {
         outlinedButtonTheme: OutlinedButtonThemeData(style: OutlinedButton.styleFrom(primary: Colors.black, onSurface: Colors.white, backgroundColor: Colors.white)),
         cardTheme: CardTheme(color: Colors.white, elevation: 10, shadowColor: Colors.black, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25))),
         floatingActionButtonTheme: FloatingActionButtonThemeData(foregroundColor: Colors.black, backgroundColor: Colors.black12, elevation: 0.0, highlightElevation: 0.0),
-        scaffoldBackgroundColor: Colors.grey.shade100,
-        appBarTheme: AppBarTheme(elevation: 0.0, color: Colors.grey.shade100, centerTitle: true),
+        scaffoldBackgroundColor: Colors.white,
+        appBarTheme: AppBarTheme(elevation: 0.0, color: Colors.white, centerTitle: true),
         primaryColor: Colors.black,
         primaryColorBrightness: Brightness.light,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(),
+      home: MyHomePage(camera: camera),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
+  CameraDescription camera;
+  MyHomePage({@required this.camera});
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -121,6 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
         context,
         MaterialPageRoute(
           builder: (context) => pageView(
+            camera: widget.camera,
             screenWidth: screenWidth,
             screenHeight: screenHeight,
           ),
@@ -138,7 +146,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        title: Text('Feelie'),
+        title: Text('Feelie', style: TextStyle(fontFamily: 'Pacifico', fontSize: screenWidth * 0.08)),
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -199,7 +207,7 @@ class _MyHomePageState extends State<MyHomePage> {
           SizedBox(width: screenWidth * 0.04),
           OutlinedButton(
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => signUp(screenWidth: screenWidth, screenHeight: screenHeight)));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => signUp(camera: widget.camera, screenWidth: screenWidth, screenHeight: screenHeight)));
             },
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -218,7 +226,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => pageView(screenHeight: screenHeight, screenWidth: screenWidth),
+                    builder: (context) => pageView(camera: widget.camera, screenHeight: screenHeight, screenWidth: screenWidth),
                   ),
                   (Route<dynamic> route) => false,
                 );

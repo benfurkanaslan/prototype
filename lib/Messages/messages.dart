@@ -30,12 +30,7 @@ class _messagesState extends State<messages> {
                     Container(
                       height: widget.screenHeight * 1.2,
                       child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('Action Box'),
-                          ],
-                        ),
+                        child: Text('Action Box'),
                       ),
                     ),
                   ],
